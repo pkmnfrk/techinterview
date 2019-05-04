@@ -21,19 +21,19 @@ namespace Tests
         {
             var calculator = new StringCalculator();
 
-            var result = calculator.Add("");
+            var result = calculator.Add("//,\n");
 
             Assert.AreEqual(0, result);
         }
 
         [TestMethod]
-        [DataRow(8, "1,2,5")]
-        [DataRow(1, "1")]
-        [DataRow(6, "4,2")]
-        [DataRow(11111, "1,10,100,1000,10000")]
-        [DataRow(6, "1\n,2,3")]
-        [DataRow(7, "1,\n2,4")]
-        [DataRow(8, "1,2                       ,5")]
+        [DataRow(8, "//,\n1,2,5")]
+        [DataRow(1, "//,\n1")]
+        [DataRow(6, "//,\n4,2")]
+        [DataRow(11111, "//,\n1,10,100,1000,10000")]
+        [DataRow(6, "//,\n1\n,2,3")]
+        [DataRow(7, "//,\n1,\n2,4")]
+        [DataRow(8, "//,\n1,2                       ,5")]
         public void Add_NumbersAreAddedCorrectly(int expected, string inpString)
         {
             var calculator = new StringCalculator();
@@ -42,6 +42,49 @@ namespace Tests
 
             Assert.AreEqual(expected, result);
         }
-        
+
+        [TestMethod]
+        [DataRow(8, "//;\n1;3;4")]
+        [DataRow(8, "//$\n1$3$4")]
+        [DataRow(8, "//@\n1@3@4")]
+        public void Add_CustomDelimietersSupported(int expected, string inpString)
+        {
+            var calculator = new StringCalculator();
+
+            var result = calculator.Add(inpString);
+
+            Assert.AreEqual(expected, result);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void Add_EmptyDelimiterIsRejected()
+        {
+            var calculator = new StringCalculator();
+
+            calculator.Add("//\n123");
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void Add_NewLineDelimiterIsRejected()
+        {
+            var calculator = new StringCalculator();
+            
+            // To the code, this looks identical to an empty delimiter, but whatevs
+            calculator.Add("//\n\n1\n2\n3");
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void Add_MissingInputIsRejected()
+        {
+            var calculator = new StringCalculator();
+
+            // To the code, this looks identical to an empty delimiter, but whatevs
+            calculator.Add("//$");
+        }
+
+
     }
 }
