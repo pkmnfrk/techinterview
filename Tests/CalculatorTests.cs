@@ -85,6 +85,19 @@ namespace Tests
             calculator.Add("//$");
         }
 
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        [DataRow("//,\n-1")]
+        [DataRow("//,\n1,-1")]
+        [DataRow("//,\n-1,1")]
+        public void Add_NegativesRejected(string inpString)
+        {
+            var calculator = new StringCalculator();
+
+            // To the code, this looks identical to an empty delimiter, but whatevs
+            calculator.Add(inpString);
+        }
+
 
     }
 }
