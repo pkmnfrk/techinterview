@@ -31,6 +31,9 @@ namespace Tests
         [DataRow(1, "1")]
         [DataRow(6, "4,2")]
         [DataRow(11111, "1,10,100,1000,10000")]
+        [DataRow(6, "1\n,2,3")]
+        [DataRow(7, "1,\n2,4")]
+        [DataRow(8, "1,2                       ,5")]
         public void Add_NumbersAreAddedCorrectly(int expected, string inpString)
         {
             var calculator = new StringCalculator();
