@@ -23,7 +23,12 @@ namespace TechInterview
 
             foreach (var inp in inputs)
             {
-                result += int.Parse(inp);
+                var n = int.Parse(inp);
+
+                if (n < 0)
+                    throw new ArgumentException("Negatives not allowed", "numbers");
+
+                result += n;
             }
 
             return result;
