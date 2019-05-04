@@ -57,6 +57,19 @@ namespace Tests
         }
 
         [TestMethod]
+        [DataRow(8, "//;;\n1;;3;;4")]
+        [DataRow(8, "//$$$$$\n1$$$$$3$$$$$4")]
+        [DataRow(8, "//Hello\n1Hello3Hello4")]
+        public void Add_LongDelimietersSupported(int expected, string inpString)
+        {
+            var calculator = new StringCalculator();
+
+            var result = calculator.Add(inpString);
+
+            Assert.AreEqual(expected, result);
+        }
+
+        [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
         public void Add_EmptyDelimiterIsRejected()
         {
