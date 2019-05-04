@@ -28,6 +28,9 @@ namespace TechInterview
                 if (n < 0)
                     throw new ArgumentException("Negatives not allowed", "numbers");
 
+                if (n > 1000)
+                    continue;
+
                 result += n;
             }
 
