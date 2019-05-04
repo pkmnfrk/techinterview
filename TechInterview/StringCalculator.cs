@@ -10,7 +10,23 @@ namespace TechInterview
     {
         public int Add(string numbers)
         {
-            throw new NotImplementedException();
+            if (numbers == null)
+                throw new ArgumentNullException("numbers");
+
+            var result = 0;
+            var inputs = numbers.Split(',');
+
+            foreach (var inp in inputs)
+            {
+                var trimmedInp = inp.Trim();
+
+                if (trimmedInp == "")
+                    continue;
+
+                result += int.Parse(trimmedInp);
+            }
+
+            return result;
         }
     }
 }
