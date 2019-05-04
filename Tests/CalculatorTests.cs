@@ -98,6 +98,20 @@ namespace Tests
             calculator.Add(inpString);
         }
 
+        [TestMethod]
+        [DataRow(0, "//,\n5000")]
+        [DataRow(6, "//,\n1,5000,2,3")]
+        [DataRow(7, "//,\n1,2,4,5000")]
+        public void Add_LargeNumbersAreIgnored(int expected, string inpString)
+        {
+            var calculator = new StringCalculator();
+
+            // To the code, this looks identical to an empty delimiter, but whatevs
+            var result = calculator.Add(inpString);
+
+            Assert.AreEqual(expected, result);
+        }
+
 
     }
 }
