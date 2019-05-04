@@ -30,7 +30,7 @@ namespace Tests
         [DataRow(8, "//,\n1,2,5")]
         [DataRow(1, "//,\n1")]
         [DataRow(6, "//,\n4,2")]
-        [DataRow(11111, "//,\n1,10,100,1000,10000")]
+        [DataRow(1111, "//,\n1,10,100,1000")]
         [DataRow(6, "//,\n1\n,2,3")]
         [DataRow(7, "//,\n1,\n2,4")]
         [DataRow(8, "//,\n1,2                       ,5")]
