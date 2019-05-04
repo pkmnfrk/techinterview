@@ -71,11 +71,14 @@ namespace Tests
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
-        public void Add_EmptyDelimiterIsRejected()
+        [DataRow("//\n123")]
+        [DataRow("//a\r\n1a2a3")]
+        [DataRow("//\ra\n1a2a3")]
+        public void Add_EmptyDelimiterIsRejected(string inpString)
         {
             var calculator = new StringCalculator();
 
-            calculator.Add("//\n123");
+            calculator.Add(inpString);
         }
 
         [TestMethod]
@@ -120,6 +123,18 @@ namespace Tests
             var calculator = new StringCalculator();
 
             // To the code, this looks identical to an empty delimiter, but whatevs
+            var result = calculator.Add(inpString);
+
+            Assert.AreEqual(expected, result);
+        }
+
+        [TestMethod]
+        [DataRow(8, "//;\r$\n1;3$4")]
+        [DataRow(8, "//AAA\rBBB\rCCC\n1AAA3CCC4")]
+        public void Add_MultipleDelimietersSupported(int expected, string inpString)
+        {
+            var calculator = new StringCalculator();
+
             var result = calculator.Add(inpString);
 
             Assert.AreEqual(expected, result);
