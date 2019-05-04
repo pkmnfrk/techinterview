@@ -54,15 +54,17 @@ namespace TechInterview
             if (parts.Length == 1)
                 throw new ArgumentException("missing inputs", "numbers");
 
-            var delimiter = parts[0];
+            var delimiterString = parts[0];
             var inputs = parts[1];
+
+            var delimiters = delimiterString.Split('\r');
 
             // if they try and use \n as a delimiter, that... well, we could make it work. But we won't for now
 
-            if (delimiter == "")
+            if (delimiters.Any(string.IsNullOrEmpty))
                 throw new ArgumentException("delimiter is empty", "numbers");
 
-            return inputs.Split(new string[] { delimiter }, StringSplitOptions.RemoveEmptyEntries);
+            return inputs.Split(delimiters, StringSplitOptions.RemoveEmptyEntries);
         }
     }
 }
